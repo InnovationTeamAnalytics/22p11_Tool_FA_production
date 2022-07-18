@@ -24,7 +24,7 @@ default_th <-
 
         )
 
-
+bs_theme_update(default_th, spacer = "0.5rem")
 #bs_theme_preview(default_th)
 
 ### reactable global theme
@@ -43,52 +43,22 @@ header_def =
     
       tags$head(
       
-       tags$style(".topimg {
+       tags$style(".topimg_left {
                             margin-left: 0px;
                             margin-right: 20px;
                             margin-top: -17px;
                             margin-bottom: -60px;
+                          }"),
+       
+       tags$style(".topimg_right {
+                            margin-left: 0px;
+                            margin-right: 0px;
+                            margin-top: 0px;
+                            margin-bottom: 0px;
+                            position: fixed;
+                            right: 20px;
+                            top: 10px;
                           }"))
       )
 
 
-# FOOTER =======================================================================
-
-tag_foot_1 = 
-    
-        tags$style(".footer{
-                      position: absolute;
-                      bottom: 0; 
-                      width: 100%;
-                      background-color: rgba(248, 249, 250, .9);
-                   }")
-
-        
-tag_foot_2 = 
-        
-        tags$style(".bottomimg {
-                            margin-left:-10px;
-                            margin-right: 0px;
-                            margin-top: 12px;
-                            margin-bottom: 0px;
-                            
-                          }")        
-
-
-footer_def = 
-    
-    tagList(
-        
-        tag_foot_1, tag_foot_2, 
-    
-    footer = tags$div(
-        
-       class = "footer",
-       
-       fluidRow(
-         column(4, div(style = 'text-align: left; margin-left: -80px', img(class = "bottomimg", src = "mbs_footer.svg", width = '100%', height = '30px'))),
-         column(4, p('', style = "text-align: center; padding-top: 14px; color: #002b36")),
-         column(4, p('www.mbsconsulting.com - 2022 | All Rights reserved.', style = "text-align: right; padding-top: 14px; padding-right: 10px;  color: #002b36"))
-       
-         ))
-    )

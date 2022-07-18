@@ -10,6 +10,7 @@
 ### Shiny
 library(shiny)
 library(bslib)
+library(argonR)
 
 
 ### Utilities

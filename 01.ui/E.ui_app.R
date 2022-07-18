@@ -17,11 +17,11 @@ ui_app <-
 
 navbarPage(
     
-      title = div(class = "topimg", img(src = "innteamc.svg", width = '100%', height = '40px')),
+      title = div(div(class = "topimg_left", img(src = "innteamc.svg", width = '100%', height = '40px')), div(class = "topimg_right", img(src = "mbscvd.svg", width = '100%', height = '40px'))),
       windowTitle = 'MBS |  Controllo Finanziario',
       theme = default_th,
       header = header_def,
-      footer = footer_def,
+      footer = NULL,
 
 
 
