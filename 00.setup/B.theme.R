@@ -58,7 +58,9 @@ header_def =
                             position: fixed;
                             right: 20px;
                             top: 10px;
-                          }"))
+                          }"),
+       
+       tags$style(" nav { box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);}"))
       )
 
 
