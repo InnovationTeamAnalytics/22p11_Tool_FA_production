@@ -33,21 +33,48 @@ navbarMenu(
 
      tabPanel(
 
-          title = 'Single File',
+          title = 'Consuntivo',
 
-          t_upload_single 
+          t_input_consuntivo_eco 
 
      ),
 
 
      "----",
 
-
      tabPanel(
 
-          title = 'Multiple Files',
+          title = 'Budget Economico',
 
-          t_upload_multi = 'placeholder'
+          t_input_budget_eco = 'placeholder'
+
+     ),
+     
+     tabPanel(
+
+          title = 'Budget Finanziario',
+
+          t_input_budget_fin = 'placeholder'
+
+     ),
+     
+     "----",
+     
+     tabPanel(
+
+          title = 'Ipotesi',
+
+          t_input_ipotesi = 'placeholder'
+
+     ),
+     
+     "----",
+     
+     tabPanel(
+
+          title = 'Extra',
+
+          t_input_extra = 'placeholder'
 
      )
      
