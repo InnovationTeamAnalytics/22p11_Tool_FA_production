@@ -7,7 +7,21 @@
 
 # : ---------
 
+tabText1 <- "Raw denim you probably haven't heard of them jean shorts Austin. 
+            Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache 
+            cliche tempor, williamsburg carles vegan helvetica. Reprehenderit 
+            butcher retro keffiyeh dreamcatcher synth. Raw denim you probably 
+            haven't heard of them jean shorts Austin. Nesciunt tofu stumptown 
+            aliqua, retro synth master cleanse"
 
+tabText2 <- "Cosby sweater eu banh mi, qui irure terry richardson ex squid. 
+            Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan 
+            american apparel, butcher voluptate nisi qui."
+
+tabText3 <- "Raw denim you probably haven't heard of them jean shorts Austin. 
+            Nesciunt tofu stumptown aliqua, retro synth master cleanse. 
+            Mustache cliche tempor, williamsburg carles vegan helvetica. 
+            Reprehenderit butcher retro keffiyeh dreamcatcher synth"
 
 
 
@@ -18,109 +32,66 @@
 
 t_input_consuntivo_eco = 
       
-   sidebarLayout(
-         
-      sidebarPanel = 
-            
-            sidebarPanel(
+   argonPage(
+       
+       argonRow(
+           
+           argonCard(title = 'Table', width = 12,
                   
-                  width = 3,
+                reactable(mtcars,
+                          highlight = TRUE)
+                
+                )
                   
-                  h5('Upload Tabular File'),
+              ) ,
+              
+        br(),
+       
+       argonRow(
+           
+           argonColumn(width = 6,
+           
+           argonCard(width = 12, icon = NULL,
                   
-                  fileInput("upload_single", NULL, accept = c('.csv', '.tsv', '.xlsx')),
+               mtcars |> hchart("scatter", hcaes(x = mpg, y = cyl)) 
                   
-                  
-                  hr(), 
-                  
-                  
-                  h5('Correlation Matrix'),
-                  
-                  s_input_selector_rm,
-                  
-                  
-                  h5('Plot Variables'),
-                  
-                  s_input_selector_x,
-                  
-                  s_input_selector_y
-                  
-            ),
+                )),
+
+               argonColumn(
+      width = 6,    
       
-      mainPanel = 
-            
-            mainPanel(
-            
-              style = 'min-width: 1400px',
-              
-              fluidRow(
-
-                column(
-                  
-                  class = "fixed_column", width = 12,
-                  
-                h4('File Overview', style = 'text-align: center;'),
-
-                reactableOutput(outputId = 't_data_summary')
+      argonCard(width = 12,
+      
+      argonTabSet(
+        id = "tab-1",
+        card_wrapper = TRUE,
+        horizontal = TRUE,
+        circle = FALSE,
+        size = "sm",
+        width = 12,
+        iconList = lapply(X = 1:3, FUN = argonIcon, name = "atom"),
+        argonTab(
+          tabName = "Tab 1",
+          active = FALSE,
+          tabText1
+        ),
+        argonTab(
+          tabName = "Tab 2",
+          active = TRUE,
+          tabText2
+        ),
+        argonTab(
+          tabName = "Tab 3",
+          active = FALSE,
+          argonSection(p('sth'))
+        )
+      )           
                 
-                )
-                  
-              ),
+              ))
               
-              
-              
-              br(),
-              
-              
-              
-              fluidRow(
-                
-                column(
-                  
-                  class = "fixed_column", width = 6,
-                  
-                  h4('Correlation Matrix', style = 'text-align: center;'),
-                  
-                  plotlyOutput(outputId = 'p_single_correlation_matrix')
-                  
-                ),
-                
-                column(
-                  
-                  class = "fixed_column", width = 6,
-                  
-                  h4('Plot Variables', style = 'text-align: center;'),
-                  
-                  plotlyOutput(outputId = 'p_single_biplot')
-                  
-                )
-                
-              ),
-              
-              
-              
-              br(),
-              
-              
-              
-              fluidRow(
-                
-                column(
-                  
-                  class = "fluid_column", width = 12,
-                  
-                  h4('File Table', style = 'text-align: center;'),
-                  
-                  reactableOutput(outputId = 't_data_single')
-                  
-                )
-                
-              ),              
-                  
-            )
    )
 
-
+)
 
 
 
