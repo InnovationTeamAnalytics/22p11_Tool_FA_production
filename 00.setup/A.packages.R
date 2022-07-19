@@ -11,6 +11,7 @@
 library(shiny)
 library(bslib)
 library(argonR)
+library(argonDash)
 
 
 ### Utilities
@@ -24,7 +25,7 @@ library(openxlsx)
 library(ggplot2)
 library(ggplot2)
 library(ggcorrplot)
-library(plotly)
+library(highcharter)
 library(reactable)
 
 
