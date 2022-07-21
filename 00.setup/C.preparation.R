@@ -111,6 +111,9 @@ dt_budget_eco_current = melt(dt_budget_current,
 ### DATA + IVA
 dt_budget_eco_current[, valori_lordoiva := valori * (1 + aliquota)]
 
+kc_wide = names(dt_budget_eco_current)[!names(dt_budget_eco_current) %in% 'valori']
+
+dt_budget_eco_current_wide = dcast(dt_budget_eco_current[, ..kc_wide], ... ~ months, value.var = 'valori_lordoiva')
 
 
 
@@ -118,7 +121,7 @@ dt_budget_eco_current[, valori_lordoiva := valori * (1 + aliquota)]
 
 
 
-# BUDGET ECONOMICO ===================================================================================
+# B. BUDGET ECONOMICO ===================================================================================
 
 ## Income:  -----------------------------------------
 
@@ -141,5 +144,86 @@ dt_budget_eco_current_costi_ind_long = merge(dt_budget_eco_current_costi_ind_lon
 dt_budget_eco_current_costi_ind_long[, budget_current := budget_current * perc_total]
 dt_budget_eco_current_costi_ind_long[, perc_total := NULL]
 
+
+
+
+
+# C. INPUT CONSUNTIVO ECONOMICO =============================================================================================
+
+## UPLOAD DATA =================================================================================================
+
+dt_consbe = read.xlsx(file.path('data', 'consuntivo_budget_economico.xlsx'), detectDates = TRUE)
+dt_consbe = janitor::clean_names(dt_consbe)
+setDT(dt_consbe)
+
+
+# DATA TRANSFORMATION =========================================================================================
+
+### SOGGETTI ADJ
+dt_consbe[, soggetti_adj := fifelse(soggetti == '---', '0', soggetti)]
+
+### CDC RAGGRUPPAMENTI ADJ
+dt_consbe = merge(dt_consbe, dt_t_cdc, by = 'cdc_raggruppamenti', all.x = TRUE) |>
+    setnames('riclassifica', 'cdc_raggruppamenti_adj', skip_absent=TRUE)
+
+### ANALITICO
+dt_consbe = merge(dt_consbe, dt_t_analitico[, .(cdc_raggruppamenti_adj, con_unlg_liv_2, trascodifica, tipo_voce)], by = c('cdc_raggruppamenti_adj', 'con_unlg_liv_2'), all.x = TRUE) |>
+    setnames('trascodifica', 'con_unlg_liv_2_adj', skip_absent = TRUE)
+
+### COSTO PERSONALE
+dt_consbe = merge(dt_consbe, dt_t_personale, by.x = 'vdc', by.y = 'id_contabile', all.x = TRUE) |>
+    setnames('tipo_costo', 'tipo_costo_personale', skip_absent = TRUE)
+
+### TIPO CLIENTE
+dt_consbe = merge(dt_consbe, dt_t_cliente_tipo[, .(soggetti_adj = soggetto, tipo_cliente)], by = 'soggetti_adj', all.x = TRUE) 
+dt_consbe[, tipo_cliente := fifelse(is.na(tipo_cliente), 'Cliente Regolare', tipo_cliente)]
+
+### CONDIZIONI COMMERCIALI
+dt_consbe = merge(dt_consbe, dt_t_condcom[, .(soggetti_adj = soggetto, condizioni_commerciali_nominali = condizioni_di_pagamento)], by = 'soggetti_adj', all.x = TRUE) 
+dt_consbe[, condizioni_commerciali_nominali := fifelse(is.na(condizioni_commerciali_nominali), 'ND', condizioni_commerciali_nominali)]
+
+dt_consbe = merge(dt_consbe, dt_t_condcom_t[, .(condizioni_commerciali = condizioni_commerciali_nominali_riclassificato, condizioni_commerciali_nominali, modalita_pagamento)], by = 'condizioni_commerciali_nominali', all.x = TRUE) 
+
+### ESPORTATORI
+dt_consbe = merge(dt_consbe, dt_t_cliente_expo[, .(soggetti_adj = soggetto, esportatore)], by = 'soggetti_adj', all.x = TRUE) 
+dt_consbe[, esportatore := fifelse(is.na(esportatore), 'NO', 'SI')]
+
+### ALIQUOTE
+dt_consbe = merge(dt_consbe, dt_t_aliquote[, .(soggetti_adj = soggetto, aliquota = iva_media)], by = 'soggetti_adj', all.x = TRUE) 
+dt_consbe[, aliquota := fcase(esportatore == 'SI', 0, 
+                              esportatore == 'NO' & !is.na(aliquota), aliquota,
+                              default = 0.22)]
+
+
+### DATA + IVA
+kc_iva = keep_cols(dt_consbe, '2021')
+dt_consbe[, (paste0(kc_iva, '_iva')) := lapply(.SD, function(x) { (1 + aliquota) * x }), .SDcols = kc_iva]
+
+
+
+# D. BUDGET ECONOMICO =========================================================================================
+
+## RICAVI CALCULATION =========================================================================================
+
+### Income:  -----------------------------------------
+
+dt_budget_eco_current_ricavi_long = dt_budget_eco_current[tipo_voce %chin% c('Ricavi', 'Altri ricavi')][, .(budget_current = sum(valori, na.rm = TRUE)), by = .(cdc_raggruppamenti_adj, tipo_voce, ter_cod_adj, months)]
+
+dt_budget_eco_current_ricavi_tot_long = dt_budget_eco_current_ricavi_long[, .(subtotal = sum(budget_current, na.rm = TRUE)), by = .(cdc_raggruppamenti_adj, tipo_voce, months)]
+dt_budget_eco_current_ricavi_tot_long[, total := sum(subtotal, na.rm = TRUE), by = .(months)]
+dt_budget_eco_current_ricavi_tot_long[, perc_total := subtotal / sum(subtotal, na.rm = TRUE), by = .(months)]
+
+
+### Costs:  -----------------------------------------
+
+dt_budget_eco_current_costi_long = dt_budget_eco_current[!tipo_voce %chin% c('Ricavi', 'Altri ricavi') & cdc_raggruppamenti_adj != 'Ricavi / Costi indiretti'][, .(budget_current = sum(valori, na.rm = TRUE)), by = .(cdc_raggruppamenti_adj, tipo_voce, con_unlg_liv_2_adj, months)]
+
+dt_budget_eco_current_costi_ind_long = dt_budget_eco_current[!tipo_voce %chin% c('Ricavi', 'Altri ricavi', 'Sotto EBITDA') & cdc_raggruppamenti_adj == 'Ricavi / Costi indiretti'][, .(budget_current = sum(valori, na.rm = TRUE)), by = .(tipo_voce, con_unlg_liv_2_adj, months)]
+
+dt_budget_eco_current_costi_ind_long = merge(dt_budget_eco_current_costi_ind_long, dt_budget_eco_current_ricavi_tot_long[tipo_voce == 'Ricavi', .(cdc_raggruppamenti_adj, months, perc_total)],
+                                             by =  c('months'), all.x = TRUE, allow.cartesian = TRUE)
+
+dt_budget_eco_current_costi_ind_long[, budget_current := budget_current * perc_total]
+dt_budget_eco_current_costi_ind_long[, perc_total := NULL]
 
 

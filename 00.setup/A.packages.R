@@ -27,6 +27,7 @@ library(ggplot2)
 library(ggcorrplot)
 library(highcharter)
 library(reactable)
+library(DT)
 
 
 

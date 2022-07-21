@@ -7,91 +7,190 @@
 
 # : ---------
 
-tabText1 <- "Raw denim you probably haven't heard of them jean shorts Austin. 
-            Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache 
-            cliche tempor, williamsburg carles vegan helvetica. Reprehenderit 
-            butcher retro keffiyeh dreamcatcher synth. Raw denim you probably 
-            haven't heard of them jean shorts Austin. Nesciunt tofu stumptown 
-            aliqua, retro synth master cleanse"
-
-tabText2 <- "Cosby sweater eu banh mi, qui irure terry richardson ex squid. 
-            Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan 
-            american apparel, butcher voluptate nisi qui."
-
-tabText3 <- "Raw denim you probably haven't heard of them jean shorts Austin. 
-            Nesciunt tofu stumptown aliqua, retro synth master cleanse. 
-            Mustache cliche tempor, williamsburg carles vegan helvetica. 
-            Reprehenderit butcher retro keffiyeh dreamcatcher synth"
 
 
+# A. BUDGET ECONOMICO =============================================================================
 
-# A. Input =============================================================================
+## 1. Ricavi ----------------------------------------------
+
+t_input_consuntivo = 
+    
+    argonPage(
+        
+        argonRow(
+            
+            argonCard(title = 'Consutivo Economico', width = 12,
+                      
+                      reactable(dt_consbe, outlined = TRUE, striped = TRUE, highlight = TRUE, compact = TRUE, searchable = TRUE)
+                      
+                      
+            )
+            
+        ),
+        
+        br(),
+        
+        argonRow(
+            
+            argonCard(title = 'Consutivo Finanziario', width = 12,
+                      
+                      reactable(dt_consbe[1:20], outlined = TRUE, striped = TRUE, highlight = TRUE, compact = TRUE, searchable = TRUE)
+                      
+                      
+            )
+            
+        )
+        
+    )
 
 
-## Single File ----------------------------------------------
 
-t_input_consuntivo_eco = 
+# B. Input =============================================================================
+
+## 1. Consuntivo ----------------------------------------------
+
+t_input_consuntivo = 
+    
+    argonPage(
+        
+        argonRow(
+            
+            argonCard(title = 'Consutivo Economico', width = 12,
+                      
+                      reactable(dt_consbe, outlined = TRUE, striped = TRUE, highlight = TRUE, compact = TRUE, searchable = TRUE)
+                      
+                      
+            )
+            
+        ),
+        
+        br(),
+        
+        argonRow(
+            
+            argonCard(title = 'Consutivo Finanziario', width = 12,
+                      
+                      reactable(dt_consbe[1:20], outlined = TRUE, striped = TRUE, highlight = TRUE, compact = TRUE, searchable = TRUE)
+                      
+                      
+            )
+            
+        )
+        
+    )
+
+## 2. Budgets ----------------------------------------------
+
+t_input_budget = 
       
    argonPage(
        
        argonRow(
            
-           argonCard(title = 'Table', width = 12,
+           argonCard(title = 'Budget Economico', width = 12,
                   
-                reactable(mtcars,
-                          highlight = TRUE)
+                 reactable(dt_budget_eco_current_wide,  outlined = TRUE, striped = TRUE, highlight = TRUE, compact = TRUE, searchable = TRUE)
+                     
                 
                 )
                   
-              ) ,
+              ),
               
         br(),
        
        argonRow(
            
-           argonColumn(width = 6,
+           argonCard(title = 'Budget Finanziario', width = 12,
+                     
+                     reactable(dt_budget_eco_current_wide,  outlined = TRUE, striped = TRUE, highlight = TRUE, compact = TRUE, searchable = TRUE)
+                     
+                     
+           )
            
-           argonCard(width = 12, icon = NULL,
-                  
-               mtcars |> hchart("scatter", hcaes(x = mpg, y = cyl)) 
-                  
-                )),
-
-               argonColumn(
-      width = 6,    
-      
-      argonCard(width = 12,
-      
-      argonTabSet(
-        id = "tab-1",
-        card_wrapper = TRUE,
-        horizontal = TRUE,
-        circle = FALSE,
-        size = "sm",
-        width = 12,
-        iconList = lapply(X = 1:3, FUN = argonIcon, name = "atom"),
-        argonTab(
-          tabName = "Tab 1",
-          active = FALSE,
-          tabText1
-        ),
-        argonTab(
-          tabName = "Tab 2",
-          active = TRUE,
-          tabText2
-        ),
-        argonTab(
-          tabName = "Tab 3",
-          active = FALSE,
-          argonSection(p('sth'))
-        )
-      )           
-                
-              ))
-              
-   )
+       )
 
 )
+
+
+
+
+## 3. Support ----------------------------------------------
+
+
+t_input_support = 
+    
+    argonPage(
+        
+        argonRow(
+            
+            argonCard(title = 'Centri di Costi', width = 3,  
+                      
+                      reactable(dt_t_cdc,  outlined = TRUE, striped = TRUE, highlight = TRUE, searchable = TRUE, defaultPageSize = 10, height = 500, pagination = FALSE)
+                      
+                      
+            ),
+            
+            argonCard(title = 'Tipo Clienti', width = 5,
+                      
+                      reactable(dt_t_cliente_tipo,  outlined = TRUE, striped = TRUE, highlight = TRUE, searchable = TRUE, defaultPageSize = 10, height = 500, pagination = FALSE)
+                      
+                      
+            ),
+            
+            argonCard(title = 'Clienti Export', width = 4,
+                      
+                      reactable(dt_t_condcom,  outlined = TRUE, striped = TRUE, highlight = TRUE, searchable = TRUE, height = 500, pagination = FALSE)
+                      
+                      
+            )               
+            
+        ),
+        
+        br(),
+        
+        argonRow(
+            
+            argonCard(title = 'Condizioni Commerciali', width = 5,
+                      
+                      reactable(dt_t_condcom,  outlined = TRUE, striped = TRUE, highlight = TRUE, compact = TRUE, searchable = TRUE, height = 400, pagination = FALSE)
+                      
+            ),
+            
+            argonCard(title = 'Condizioni Commerciali 2', width = 7,
+                      
+                      reactable(dt_t_condcom_t,  outlined = TRUE, striped = TRUE, highlight = TRUE, compact = TRUE, searchable = TRUE, height = 400, pagination = FALSE)
+                      
+            )            
+            
+        ),
+        
+        argonRow(
+            
+            argonCard(title = 'Aliquote', width = 5,
+                      
+                      reactable(dt_t_aliquote,  outlined = TRUE, striped = TRUE, highlight = TRUE, compact = TRUE, searchable = TRUE, height = 400, pagination = FALSE)
+                      
+            ),
+            
+            argonCard(title = 'Personale', width = 7,
+                      
+                      reactable(dt_t_personale,  outlined = TRUE, striped = TRUE, highlight = TRUE, compact = TRUE, searchable = TRUE, height = 400, pagination = FALSE)
+                      
+            )            
+            
+        ),
+        
+        argonRow(
+            
+            argonCard(title = 'Analitico', width = 12,
+                      
+                      reactable(dt_t_analitico,  outlined = TRUE, striped = TRUE, highlight = TRUE, compact = TRUE, searchable = TRUE, height = 400, pagination = FALSE)
+                      
+            )
+            
+        )
+        
+    )
 
 
 

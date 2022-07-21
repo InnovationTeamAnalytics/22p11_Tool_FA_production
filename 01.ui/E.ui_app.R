@@ -35,46 +35,32 @@ navbarMenu(
 
           title = 'Consuntivo',
 
-          t_input_consuntivo_eco 
+          t_input_consuntivo 
 
      ),
 
 
-     "----",
-
      tabPanel(
 
-          title = 'Budget Economico',
+          title = 'Budgets',
 
-          t_input_budget_eco = 'placeholder'
+          t_input_budget
 
      ),
      
      tabPanel(
 
-          title = 'Budget Finanziario',
+          title = 'Support',
 
-          t_input_budget_fin = 'placeholder'
+          t_input_support
 
      ),
-     
-     "----",
      
      tabPanel(
 
           title = 'Ipotesi',
 
           t_input_ipotesi = 'placeholder'
-
-     ),
-     
-     "----",
-     
-     tabPanel(
-
-          title = 'Extra',
-
-          t_input_extra = 'placeholder'
 
      )
      
