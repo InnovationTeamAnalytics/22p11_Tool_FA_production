@@ -12,6 +12,7 @@ library(shiny)
 library(bslib)
 library(argonR)
 library(argonDash)
+library(shinyWidgets)
 
 
 ### Utilities
@@ -23,11 +24,10 @@ library(openxlsx)
 
 ### Visualization
 library(ggplot2)
-library(ggplot2)
-library(ggcorrplot)
 library(highcharter)
 library(reactable)
-library(DT)
+library(knitr)
+library(kableExtra)
 
 
 
@@ -36,7 +36,5 @@ library(DT)
 options(shiny.maxRequestSize = 200*1024^2)
 
 cat('INNOVATION TEAM - LOADING: Please wait while app is getting ready in your default browser...')
-
-
 
 

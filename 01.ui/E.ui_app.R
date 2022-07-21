@@ -44,8 +44,8 @@ navbarMenu(
 
           title = 'Budgets',
 
-          t_input_budget
-
+          t_input_budget,
+          
      ),
      
      tabPanel(
@@ -70,13 +70,20 @@ navbarMenu(
      
 # X. Analysis =============================================================================
      
+navbarMenu(
+
+     title = 'Budget',
+
      tabPanel(
 
-          title = 'Analysis',
+          title = 'Economico',
 
-          'placeholder'
+          t_budget_economico 
 
      )
+     
+)     
+     
 
 
 # : ============================================================================================================================

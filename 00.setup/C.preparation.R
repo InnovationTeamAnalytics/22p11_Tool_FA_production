@@ -1,6 +1,5 @@
 
 
-
 # A. INPUT BUDGET ECONOMICO =============================================================================================
 
 ## UPLOAD DATA =================================================================================================
@@ -208,6 +207,10 @@ dt_consbe[, (paste0(kc_iva, '_iva')) := lapply(.SD, function(x) { (1 + aliquota)
 ### Income:  -----------------------------------------
 
 dt_budget_eco_current_ricavi_long = dt_budget_eco_current[tipo_voce %chin% c('Ricavi', 'Altri ricavi')][, .(budget_current = sum(valori, na.rm = TRUE)), by = .(cdc_raggruppamenti_adj, tipo_voce, ter_cod_adj, months)]
+
+dt_budget_eco_current_ricavi = dcast(dt_budget_eco_current_ricavi_long, ... ~ months, value.var = 'budget_current')
+dt_budget_eco_current_ricavi_tot = dt_budget_eco_current_ricavi_long[, .(total = sum(budget_current)), by = c('cdc_raggruppamenti_adj', 'tipo_voce', 'ter_cod_adj')]
+
 
 dt_budget_eco_current_ricavi_tot_long = dt_budget_eco_current_ricavi_long[, .(subtotal = sum(budget_current, na.rm = TRUE)), by = .(cdc_raggruppamenti_adj, tipo_voce, months)]
 dt_budget_eco_current_ricavi_tot_long[, total := sum(subtotal, na.rm = TRUE), by = .(months)]
