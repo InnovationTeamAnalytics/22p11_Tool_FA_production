@@ -16,7 +16,7 @@ default_th <-
 
       version = 5,
 
-        bootswatch = 'zephyr',
+        bootswatch = 'lumen',
 
             primary = "#225E64",
             secondary = '#8FBCBB',
@@ -69,18 +69,33 @@ header_def =
                             margin-bottom: 0px;
                             position: fixed;
                             right: 20px;
-                            top: 20px;
+                            top: 15px;
                           }"),
        
        tags$style(" nav { box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);}"),
        
        tags$style(HTML('.navbar-nav > li > a, .navbar-brand {
-                         padding-top:15px !important; 
+                         padding-top:12px !important; 
                          padding-bottom:0 !important;
-                         height: 50px;
-                         font-size: 14px;
+                         height: 45px;
+                         color: #225E64;
+                         font-size: 15px;
+                         font-weight: bold;
+       }
+                         
+                         .navbar.navbar-default {
+                         color: #225E64;
                          }
-                        .navbar {min-height:50px !important;}'))
+                         
+                        .navbar {
+                        min-height:40px !important;
+                        color: #225E64;
+                        }')),
+       
+       tags$head(
+           tags$style(type="text/css", ".inline label{ display: table-cell; text-align: right; vertical-align: bottom; }
+                                   .inline .form-group { display: table-row;}")
+       )
          ) 
       )
       
@@ -110,7 +125,7 @@ ricavi_card =
    margin-bottom: 0;
    margin-right: 5px;
    margin-left: 5px;
-   background-color: #04BF8A;
+   background-color: #B1C6BF;
    border-radius: .375rem;
    border-bottom: 1px solid rgba(0,0,0,0.125);
    box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);"
@@ -141,8 +156,8 @@ text_title =
 react_ricavi = reactable::reactableTheme(
 
   color = "#363636",
-  tableStyle = list(fontSize = 12),
-  headerStyle = list(backgroundColor = "#04BF8A", color = 'white', fontSize = 14),
+  tableStyle = list(fontSize = 11),
+  headerStyle = list(backgroundColor = "#04BF8A", color = 'white', fontSize = 12),
 
   backgroundColor = "#ffffff",
   borderColor = "#dfe2e5",
