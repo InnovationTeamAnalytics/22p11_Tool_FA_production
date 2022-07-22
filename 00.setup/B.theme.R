@@ -130,7 +130,42 @@ ricavi_card =
    border-bottom: 1px solid rgba(0,0,0,0.125);
    box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);"
 
+costi1_card =  
+    
+    "padding: 1rem 1.5rem;
+   color: white;
+   margin-bottom: 0;
+   margin-right: 5px;
+   margin-left: 5px;
+   background-color: #F3B58E;
+   border-radius: .375rem;
+   border-bottom: 1px solid rgba(0,0,0,0.125);
+   box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);"
 
+costi2_card =  
+    
+    "padding: 1rem 1.5rem;
+   color: white;
+   margin-bottom: 0;
+   margin-right: 5px;
+   margin-left: 5px;
+   background-color: #EDD3C2;
+   border-radius: .375rem;
+   border-bottom: 1px solid rgba(0,0,0,0.125);
+   box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);"
+
+
+costi3_card =  
+    
+    "padding: 1rem 1.5rem;
+   color: white;
+   margin-bottom: 0;
+   margin-right: 5px;
+   margin-left: 5px;
+   background-color: #FFF2EB;
+   border-radius: .375rem;
+   border-bottom: 1px solid rgba(0,0,0,0.125);
+   box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);"
 
 table_card =  
     
