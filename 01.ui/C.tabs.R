@@ -28,8 +28,10 @@ t_budget_economico =
                      column(tags$div(id = "head_ricavi_groupage_1", class = "inline", numericInput(inputId = "head_ricavi_groupage", label = NULL, value = 5, min = 3, step = 1)), align = 'right',  width = 4)
                  ),
                  
-                 fluidRow(tableOutput("ricavi_groupage"),
-                          tableOutput("ricavi_groupage_perc")),
+                 fluidRow(column(reactableOutput("ricavi_groupage"), 
+                                 hr(), ricavi_summary_table,
+                                 br(), br(), width = 12),
+                          ),
                  
                  fluidRow(
                      column(h5(HTML("<b>Trasporto</b>"), style = 'color: #fff;'), hr(style = "height:2px;border-width:0;color:white;background-color:white"), width = 8),

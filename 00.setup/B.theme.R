@@ -16,8 +16,6 @@ default_th <-
 
       version = 5,
 
-        bootswatch = 'lumen',
-
             primary = "#225E64",
             secondary = '#8FBCBB',
 
@@ -26,10 +24,10 @@ default_th <-
             warning = '#81A1C1',
             danger = '#c37e83',
 
-      font_scale = 0.875,
+      font_scale = 1,
       
-      base_font = font_google("Open Sans"),
-      heading_font = font_google("Open Sans"),
+      base_font = font_google("Work Sans"),
+      heading_font = font_google("Work Sans"),
       
      "navbar-nav-link-padding-x" = "15px",
      "navbar-nav-min-height" = '100px'
@@ -40,10 +38,13 @@ bs_theme_update(default_th, spacer = "0.25rem")
 #bs_theme_preview(default_th)
 
 ### reactable global theme
-options(reactable.theme = react_format)
+#options(reactable.theme = react_format)
 header_tables = colDef(headerStyle = list(background = "#8FBCBB", borderColor = "#8FBCBB", color = '#042326', cursor = "pointer"),
                        format = colFormat(separator = FALSE, digits = 0),
                        align = "center")
+
+
+
 
 
 
@@ -89,7 +90,6 @@ header_def =
                          
                         .navbar {
                         min-height:40px !important;
-                        color: #225E64;
                         }')),
        
        tags$head(
@@ -186,17 +186,18 @@ text_title =
     
     "color:#196774; text-align:center"
 
-# X. Extras =======================================================================
+# X. Table =======================================================================
 
 react_ricavi = reactable::reactableTheme(
 
   color = "#363636",
   tableStyle = list(fontSize = 11),
-  headerStyle = list(backgroundColor = "#04BF8A", color = 'white', fontSize = 12),
+  headerStyle = list(backgroundColor = "#649FA1", color = '#fff', fontSize = 12, cursor = 'pointer'),
 
+  footerStyle = list(fontWeight = "bold"),
+  
   backgroundColor = "#ffffff",
-  borderColor = "#dfe2e5",
-  stripedColor = "#f6f6f6",
+  borderColor = "#8FBCBB",
   highlightColor = "#DCE4F2",
 
   cellPadding = "8px 12px",
@@ -210,5 +211,9 @@ react_ricavi = reactable::reactableTheme(
   selectStyle = list(backgroundColor = "#87A1B0", color = 'white')
 
 )
+
+
+
+
 
 

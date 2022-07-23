@@ -26,6 +26,7 @@ library(openxlsx)
 library(ggplot2)
 library(highcharter)
 library(reactable)
+library(reactablefmtr)
 library(knitr)
 library(kableExtra)
 
